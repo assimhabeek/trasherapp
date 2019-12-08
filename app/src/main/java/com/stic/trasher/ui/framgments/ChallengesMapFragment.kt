@@ -19,8 +19,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
-import com.mapswithme.maps.api.MWMPoint
-import com.mapswithme.maps.api.MapsWithMeApi
 import com.stic.trasher.R
 
 
@@ -176,10 +174,6 @@ class ChallengesMapFragment : Fragment(), LocationListener {
                 String.format("%f,%f,%f", loc.altitude, loc.latitude, loc.longitude),
                 Toast.LENGTH_SHORT
             ).show()
-            val p = MWMPoint(loc.latitude, loc.longitude, "Constantine")
-            val act = activity
-            if (act != null)
-                MapsWithMeApi.showPointOnMap(act, p.lat, p.lon, p.name)
         }
     }
 
