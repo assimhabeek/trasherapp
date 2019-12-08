@@ -1,0 +1,3 @@
+include ':app', ':mapsme'
+rootProject.name='Trasher'
+project(':mapsme').projectDir = new File('app/libs')
