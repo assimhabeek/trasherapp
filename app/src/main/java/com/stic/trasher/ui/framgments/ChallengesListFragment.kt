@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.stic.trasher.Challenge
 import com.stic.trasher.R
 import com.stic.trasher.adapters.ChallengesListAdapter
+import com.stic.trasher.utils.GsonUtil
+import dz.stic.model.Challenge
 
 class ChallengesListFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,39 +25,8 @@ class ChallengesListFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.framgment_challenges_list, container, false)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-
-        val challenges: Array<Challenge> = arrayOf(
-            Challenge(
-                1,
-                "Challenge 01",
-                "Address of challenge 01",
-                R.drawable.ic_email_24px
-            ),
-            Challenge(
-                2,
-                "Challenge 02",
-                "Address of challenge 02",
-                R.drawable.ic_account_circle_24px
-            ),
-            Challenge(
-                3,
-                "Challenge 03",
-                "Address of challenge 03",
-                R.drawable.ic_local_phone_24px
-            ),
-            Challenge(
-                4,
-                "Challenge 04",
-                "Address of challenge 04",
-                R.drawable.ic_lock_24px
-            ),
-            Challenge(
-                5,
-                "Challenge 05",
-                "Address of challenge 05",
-                R.drawable.ic_email_24px
-            )
-        )
+        val challenges: ArrayList<Challenge> =
+            GsonUtil.fromJsonToChallege(arguments?.getString("challenges"))
 
         val recyclerViewAdapter = ChallengesListAdapter(challenges)
         val rlm: RecyclerView.LayoutManager = LinearLayoutManager(context)
@@ -65,6 +36,16 @@ class ChallengesListFragment : Fragment() {
         recyclerViewAdapter.notifyDataSetChanged()
 
         return view
+    }
+
+    companion object {
+        fun newInstance(challenges: String): ChallengesListFragment {
+            val bundle = Bundle()
+            val fragment = ChallengesListFragment()
+            bundle.putString("challenges", challenges)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }
 

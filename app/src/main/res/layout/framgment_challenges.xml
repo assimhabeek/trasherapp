@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
+    <!-- Main content -->
+
+
+    <com.stic.trasher.controll.ChallengeViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,6 +17,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top" />
 
-    </androidx.viewpager.widget.ViewPager>
+    </com.stic.trasher.controll.ChallengeViewPager>
 
-</LinearLayout>
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/loadingChallenges"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorPrimary" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/refresh_challenge_button"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_refresh"
+        app:tint="@color/colorPrimaryText" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/challenge_avatar"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/trasher" />
+        android:src="@drawable/ic_flag" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,18 +21,32 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/challenge_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Empty Element"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/address"
-            style="@style/TextAppearance.MaterialComponents.Caption"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Empty Element" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/by" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/challenge_publisher"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Empty Element" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
