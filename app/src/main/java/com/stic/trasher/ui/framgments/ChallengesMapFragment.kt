@@ -122,6 +122,7 @@ class ChallengesMapFragment : Fragment(), LocationListener {
                 requestPermissions(unGranted.toTypedArray(), ALL_PERMISSIONS_RESULT)
             }
         }
+
     }
 
     private fun findUnAskedPermissions(wanted: Array<String>): List<String> {

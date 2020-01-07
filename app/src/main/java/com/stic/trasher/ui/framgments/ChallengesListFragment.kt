@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stic.trasher.R
-import com.stic.trasher.adapters.ChallengesListAdapter
+import com.stic.trasher.adapters.ChallengesRecyclerViewAdapter
 import com.stic.trasher.utils.GsonUtil
 import dz.stic.model.Challenge
 
@@ -28,7 +28,7 @@ class ChallengesListFragment : Fragment() {
         val challenges: ArrayList<Challenge> =
             GsonUtil.fromJsonToChallege(arguments?.getString("challenges"))
 
-        val recyclerViewAdapter = ChallengesListAdapter(challenges)
+        val recyclerViewAdapter = ChallengesRecyclerViewAdapter(challenges)
         val rlm: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = rlm
         recyclerView.itemAnimator = DefaultItemAnimator()

@@ -22,4 +22,12 @@
     <string name="no_location_service">No location service detected</string>
     <string name="by">by</string>
     <string name="title_activity_permissions">PermissionsActivity</string>
+    <string name="ACCESS_FINE_LOCATION_PERMISSION">ACCESS LOCATION</string>
+    <string name="ACCESS_FINE_LOCATION_PERMISSION_DESCRIPTION">Access location description</string>
+    <string name="ACCESS_COARSE_LOCATION">Access coarse location</string>
+    <string name="ACCESS_COARSE_LOCATION_DESCRIPTION">Access coarse location description</string>
+    <string name="WRITE_EXTERNAL_STORAGE">Write external storage</string>
+    <string name="WRITE_EXTERNAL_STORAGE_DESCRIPTION">Write external storage</string>
+    <string name="INTERNET_PERMISSION">Access internet</string>
+    <string name="INTERNET_PERMISSION_DESCRIPTION">Acess interent description</string>
 </resources>

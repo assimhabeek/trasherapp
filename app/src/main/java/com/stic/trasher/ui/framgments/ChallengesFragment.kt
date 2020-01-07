@@ -49,11 +49,14 @@ class ChallengesFragment : Fragment() {
     fun loadChallenges() {
         refreshButton.isEnabled = false
         progressBar.isVisible = true
+
         Ion.with(context)
             .load("${resources.getString(R.string.base_url)}${resources.getString(R.string.challenges_url)}")
             .asString()
             .withResponse()
             .setCallback { e, response ->
+                println(e)
+
                 if (response != null && response.headers.code() == 200 && response.result != null) {
                     createViewPager(response.result)
                 } else {

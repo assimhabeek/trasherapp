@@ -21,7 +21,7 @@ class SplashActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         initProgressBar()
-        moveToLogin()
+        moveToPermissionsActivity()
     }
 
 
@@ -36,7 +36,7 @@ class SplashActivity : Activity() {
 
     }
 
-    private fun moveToLogin() {
+    private fun moveToPermissionsActivity() {
 
         Handler().postDelayed({
 

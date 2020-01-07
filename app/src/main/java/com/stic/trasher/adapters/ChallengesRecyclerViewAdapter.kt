@@ -12,8 +12,8 @@ import dz.stic.model.Challenge
 import dz.stic.model.Client
 
 
-class ChallengesListAdapter(private val challenges: ArrayList<Challenge>) :
-    RecyclerView.Adapter<ChallengesListAdapter.ChallengeViewHolder>() {
+class ChallengesRecyclerViewAdapter(private val challenges: ArrayList<Challenge>) :
+    RecyclerView.Adapter<ChallengesRecyclerViewAdapter.ChallengeViewHolder>() {
 
     class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val address: TextView = view.findViewById(R.id.challenge_address)
