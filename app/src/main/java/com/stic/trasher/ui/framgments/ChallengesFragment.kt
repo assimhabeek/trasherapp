@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.ybq.android.spinkit.SpinKitView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
-import com.koushikdutta.ion.Ion
 import com.stic.trasher.R
 import com.stic.trasher.adapters.ChallengesTabAdapter
 import com.stic.trasher.controll.ChallengeViewPager
-import android.R.id
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
+import com.stic.trasher.utils.HttpClient
 
 
 class ChallengesFragment : Fragment() {
@@ -50,6 +48,9 @@ class ChallengesFragment : Fragment() {
         refreshButton.isEnabled = false
         progressBar.isVisible = true
 
+        HttpClient.authService
+
+/*
         Ion.with(context)
             .load("${resources.getString(R.string.base_url)}${resources.getString(R.string.challenges_url)}")
             .asString()
@@ -66,6 +67,7 @@ class ChallengesFragment : Fragment() {
                 refreshButton.isEnabled = true
                 progressBar.isVisible = false
             }
+*/
     }
 
     fun createViewPager(challenges: String) {

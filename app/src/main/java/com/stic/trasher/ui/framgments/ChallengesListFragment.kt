@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stic.trasher.R
 import com.stic.trasher.adapters.ChallengesRecyclerViewAdapter
-import com.stic.trasher.utils.GsonUtil
 import dz.stic.model.Challenge
 
 class ChallengesListFragment : Fragment() {
@@ -25,10 +24,17 @@ class ChallengesListFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.framgment_challenges_list, container, false)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+/*
         val challenges: ArrayList<Challenge> =
             GsonUtil.fromJsonToChallege(arguments?.getString("challenges"))
+*/
 
-        val recyclerViewAdapter = ChallengesRecyclerViewAdapter(challenges)
+
+        val challenges = arguments?.getSerializable("challenges")
+
+        val recyclerViewAdapter =
+            ChallengesRecyclerViewAdapter(challenges as ArrayList<Challenge>)
+
         val rlm: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = rlm
         recyclerView.itemAnimator = DefaultItemAnimator()
@@ -39,10 +45,10 @@ class ChallengesListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(challenges: String): ChallengesListFragment {
+        fun newInstance(challenges: ArrayList<Challenge>): ChallengesListFragment {
             val bundle = Bundle()
             val fragment = ChallengesListFragment()
-            bundle.putString("challenges", challenges)
+            bundle.putSerializable("challenges", challenges)
             fragment.arguments = bundle
             return fragment
         }

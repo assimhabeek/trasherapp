@@ -21,13 +21,11 @@
     <string name="challenges">Challenges</string>
     <string name="no_location_service">No location service detected</string>
     <string name="by">by</string>
-    <string name="title_activity_permissions">PermissionsActivity</string>
-    <string name="ACCESS_FINE_LOCATION_PERMISSION">ACCESS LOCATION</string>
-    <string name="ACCESS_FINE_LOCATION_PERMISSION_DESCRIPTION">Access location description</string>
-    <string name="ACCESS_COARSE_LOCATION">Access coarse location</string>
-    <string name="ACCESS_COARSE_LOCATION_DESCRIPTION">Access coarse location description</string>
-    <string name="WRITE_EXTERNAL_STORAGE">Write external storage</string>
-    <string name="WRITE_EXTERNAL_STORAGE_DESCRIPTION">Write external storage</string>
-    <string name="INTERNET_PERMISSION">Access internet</string>
-    <string name="INTERNET_PERMISSION_DESCRIPTION">Acess interent description</string>
+    <string name="please_grant_required_permissions">Please grant all the required permissions,in order to use Trasher.</string>
+    <string name="some_required_permission_are_disabled">Some of the required permission was permanently denied, please go to app setting to grant them.</string>
+    <string name="required_permission">Required permission</string>
+    <string name="try_again">Try Again</string>
+    <string name="no_thanks">No Thanks</string>
+    <string name="go_to_setting_required_permissions">Go to setting and grant required permissions</string>
+    <string name="ok">OK</string>
 </resources>

@@ -1,4 +1,4 @@
 <resources>
-    <item name="base_url" type="string">http://192.168.43.186:3000/api</item>
+    <item name="auth_login" type="string">/auth/login</item>
     <item name="challenges_url" type="string">/challenges</item>
 </resources>

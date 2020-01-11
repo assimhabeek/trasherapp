@@ -17,7 +17,13 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.stic.trasher.R
 import com.stic.trasher.ui.SignUpActivity.Companion.SIGN_UP_SUCCESS
+import com.stic.trasher.utils.HttpClient
+import com.stic.trasher.utils.PermissionUtils.redirectIfPermissionsMessing
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
+import dz.stic.model.Client
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Response
 
 
 class LoginActivity : Activity() {
@@ -42,6 +48,7 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        redirectIfPermissionsMessing(this)
 
         bindViewElements()
 
@@ -50,6 +57,7 @@ class LoginActivity : Activity() {
         bindViewEvents()
 
 
+/*
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -57,6 +65,7 @@ class LoginActivity : Activity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
         updateUI(account)
+*/
     }
 
 
@@ -85,9 +94,34 @@ class LoginActivity : Activity() {
 
         signInButton.setOnClickListener {
             if (isInputsValid()) {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                HttpClient.authService.login(
+                    Client(
+                        "",
+                        "",
+                        username.text.toString(),
+                        username.text.toString(),
+                        password.text.toString(),
+                        null,
+                        null,
+                        null,
+                        null
+                    )
+                )
+                    .enqueue(object : retrofit2.Callback<JSONObject> {
+
+                        override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                            t.printStackTrace()
+                        }
+
+                        override fun onResponse(
+                            call: Call<JSONObject>,
+                            response: Response<JSONObject>
+                        ) {
+                            println(response.body().toString())
+                        }
+
+                    })
+
             }
         }
 
@@ -103,10 +137,16 @@ class LoginActivity : Activity() {
         }
     }
 
+    private fun goToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun isInputsValid(): Boolean {
         return username.validator()
             .nonEmpty()
-            .minLength(5)
+            .minLength(3)
             .addErrorCallback {
                 username.setError(it, null)
             }.check()
@@ -114,7 +154,7 @@ class LoginActivity : Activity() {
                 password.validator().nonEmpty().atleastOneNumber()
                     .atleastOneSpecialCharacters()
                     .atleastOneUpperCase()
-                    .minLength(6)
+                    .minLength(3)
                     .addErrorCallback {
                         password.setError(it, null)
                     }.check()
@@ -179,7 +219,6 @@ class LoginActivity : Activity() {
         startActivity(intent)
         finish()
     }
-
 
 
 }

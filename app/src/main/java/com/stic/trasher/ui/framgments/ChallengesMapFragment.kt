@@ -22,7 +22,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.stic.trasher.R
-import com.stic.trasher.utils.GsonUtil
 import dz.stic.model.Challenge
 import org.mapsforge.core.graphics.Bitmap
 import org.mapsforge.core.model.LatLong
@@ -70,7 +69,9 @@ class ChallengesMapFragment : Fragment(), LocationListener {
             ctx = context as Context
             lm = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
+/*
             challenges = GsonUtil.fromJsonToChallege(arguments?.getString("challenges"))
+*/
 
 
             setupMap(view)
