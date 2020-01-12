@@ -15,6 +15,9 @@ import dz.stic.model.Challenge
 class ChallengesListFragment : Fragment() {
 
 
+    private var challenges: ArrayList<Challenge> = ArrayList()
+    private lateinit var recyclerViewAdapter: ChallengesRecyclerViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,35 +27,20 @@ class ChallengesListFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.framgment_challenges_list, container, false)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-/*
-        val challenges: ArrayList<Challenge> =
-            GsonUtil.fromJsonToChallege(arguments?.getString("challenges"))
-*/
-
-
-        val challenges = arguments?.getSerializable("challenges")
-
-        val recyclerViewAdapter =
-            ChallengesRecyclerViewAdapter(challenges as ArrayList<Challenge>)
-
+        recyclerViewAdapter = ChallengesRecyclerViewAdapter(challenges)
         val rlm: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = rlm
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = recyclerViewAdapter
-        recyclerViewAdapter.notifyDataSetChanged()
 
         return view
     }
 
-    companion object {
-        fun newInstance(challenges: ArrayList<Challenge>): ChallengesListFragment {
-            val bundle = Bundle()
-            val fragment = ChallengesListFragment()
-            bundle.putSerializable("challenges", challenges)
-            fragment.arguments = bundle
-            return fragment
-        }
+    fun updateChallengesList(data: ArrayList<Challenge>) {
+        challenges = data
+        recyclerViewAdapter.notifyDataSetChanged()
     }
+
 }
 
 
