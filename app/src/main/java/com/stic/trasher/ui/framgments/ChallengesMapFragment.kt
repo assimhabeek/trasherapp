@@ -1,20 +1,28 @@
 package com.stic.trasher.ui.framgments
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.stic.trasher.R
 import dz.stic.model.Challenge
+import org.mapsforge.core.graphics.Bitmap
 import org.mapsforge.core.model.LatLong
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.android.util.AndroidUtil
 import org.mapsforge.map.android.view.MapView
-import org.mapsforge.map.layer.cache.TileCache
+import org.mapsforge.map.layer.overlay.Marker
 import org.mapsforge.map.layer.renderer.TileRendererLayer
 import org.mapsforge.map.reader.MapFile
 import org.mapsforge.map.rendertheme.InternalRenderTheme
@@ -26,6 +34,7 @@ class ChallengesMapFragment : Fragment() {
 
     private var challenges: ArrayList<Challenge> = ArrayList()
     private lateinit var mapView: MapView
+    private lateinit var locationManager: LocationManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +44,10 @@ class ChallengesMapFragment : Fragment() {
 
         AndroidGraphicFactory.createInstance(activity?.application)
         mapView = MapView(context)
-
-        setupMap()
+        if (context != null) {
+            setupMap()
+            setupLocationManager()
+        }
 
         return mapView
     }
@@ -73,6 +84,75 @@ class ChallengesMapFragment : Fragment() {
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER)
         mapView.layerManager.layers.add(tileRendererLayer)
 
+    }
+
+    fun setupLocationManager() {
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val location: Location? =
+                locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            drawLocation(location)
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1,
+                1.0f,
+                object : LocationListener {
+                    override fun onLocationChanged(location: Location?) {
+                        drawLocation(location)
+                    }
+
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+                        if (context != null)
+                            Toast.makeText(context, "Status Changed", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onProviderEnabled(provider: String?) {
+                        if (context != null)
+                            Toast.makeText(
+                                context,
+                                "Location Provider is Enabled",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                    }
+
+                    override fun onProviderDisabled(provider: String?) {
+                        if (context != null)
+                            Toast.makeText(
+                                context,
+                                "Location Provider is Disabled",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                    }
+
+                })
+        }
+    }
+
+
+    private fun drawLocation(location: Location?) {
+        if (location != null) {
+            mapView.layerManager.layers.add(
+                createMarker(
+                    LatLong(location.latitude, location.longitude),
+                    R.drawable.ic_location_on
+                )
+            )
+        }
+    }
+
+    private fun createMarker(geoPoint: LatLong, drawable: Int): Marker {
+        val drawable: Drawable = resources.getDrawable(drawable)
+        val bitmap: Bitmap = AndroidGraphicFactory.convertToBitmap(drawable)
+        bitmap.scaleTo(130, 130)
+        return Marker(
+            geoPoint, bitmap, 0, -bitmap.height / 2
+        )
     }
 
 
