@@ -28,4 +28,5 @@
     <string name="no_thanks">No Thanks</string>
     <string name="go_to_setting_required_permissions">Go to setting and grant required permissions</string>
     <string name="ok">OK</string>
+    <string name="logout">Logout</string>
 </resources>

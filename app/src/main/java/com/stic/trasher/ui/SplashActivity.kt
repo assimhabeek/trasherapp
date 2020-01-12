@@ -11,9 +11,9 @@ import android.widget.ProgressBar
 import androidx.core.app.ActivityCompat
 import com.github.ybq.android.spinkit.style.Wave
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.stic.trasher.utils.PermissionUtils.APP_PERMISSIONS
-import com.stic.trasher.utils.PermissionUtils.hasPermission
-import com.stic.trasher.utils.PermissionUtils.isAllGranted
+import com.stic.trasher.utils.PermissionManager.APP_PERMISSIONS
+import com.stic.trasher.utils.PermissionManager.hasPermission
+import com.stic.trasher.utils.PermissionManager.isAllGranted
 import com.stic.trasher.R
 
 

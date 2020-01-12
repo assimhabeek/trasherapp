@@ -8,7 +8,7 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.stic.trasher.ui.SplashActivity
 
-object PermissionUtils {
+object PermissionManager {
     // List of all permissions for the app
     val APP_PERMISSIONS = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,

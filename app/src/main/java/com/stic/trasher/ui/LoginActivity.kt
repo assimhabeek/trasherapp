@@ -3,25 +3,18 @@ package com.stic.trasher.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import androidx.annotation.IdRes
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.stic.trasher.R
 import com.stic.trasher.ui.SignUpActivity.Companion.SIGN_UP_SUCCESS
 import com.stic.trasher.utils.HttpClient
-import com.stic.trasher.utils.PermissionUtils.redirectIfPermissionsMessing
+import com.stic.trasher.utils.JWtRequest
+import com.stic.trasher.utils.PermissionManager
+import com.stic.trasher.utils.SessionManager
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
-import dz.stic.model.Client
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -48,7 +41,9 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        redirectIfPermissionsMessing(this)
+        PermissionManager.redirectIfPermissionsMessing(this)
+        SessionManager.redirectIfLoggedIn(this)
+
 
         bindViewElements()
 
@@ -71,15 +66,15 @@ class LoginActivity : Activity() {
 
     private fun bindViewElements() {
 
-        googleSignInButton = bind(R.id.google_sign_in_button)
+        googleSignInButton = findViewById(R.id.google_sign_in_button)
 
-        signInButton = bind(R.id.sign_in_button)
+        signInButton = findViewById(R.id.sign_in_button)
 
-        username = bind(R.id.username)
+        username = findViewById(R.id.username)
 
-        password = bind(R.id.password)
+        password = findViewById(R.id.password)
 
-        signUpButton = bind(R.id.sign_up_button)
+        signUpButton = findViewById(R.id.sign_up_button)
     }
 
 
@@ -93,43 +88,44 @@ class LoginActivity : Activity() {
     private fun bindViewEvents() {
 
         signInButton.setOnClickListener {
-            if (isInputsValid()) {
-                HttpClient.authService.login(
-                    Client(
-                        "",
-                        "",
-                        username.text.toString(),
-                        username.text.toString(),
-                        password.text.toString(),
-                        null,
-                        null,
-                        null,
-                        null
-                    )
+
+
+            //            if (isInputsValid()) {
+            HttpClient.authService.login(
+                JWtRequest(
+                    username.text.toString(),
+                    password.text.toString()
                 )
-                    .enqueue(object : retrofit2.Callback<JSONObject> {
+            ).enqueue(object : retrofit2.Callback<String> {
 
-                        override fun onFailure(call: Call<JSONObject>, t: Throwable) {
-                            t.printStackTrace()
-                        }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    showToast(t.message)
+                }
 
-                        override fun onResponse(
-                            call: Call<JSONObject>,
-                            response: Response<JSONObject>
-                        ) {
-                            println(response.body().toString())
-                        }
+                override fun onResponse(
+                    call: Call<String>,
+                    response: Response<String>
+                ) {
+                    if (response.code() == 200) {
+                        storeToken(response.body()!!)
+                        showMainActivity()
+                    } else {
+                        showToast("Wrong username or password")
+                    }
+                }
 
-                    })
+            })
 
-            }
         }
+        //      }
 
+/*
         googleSignInButton.setOnClickListener {
 
             googleSignIn()
 
         }
+*/
 
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
@@ -137,11 +133,6 @@ class LoginActivity : Activity() {
         }
     }
 
-    private fun goToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
     private fun isInputsValid(): Boolean {
         return username.validator()
@@ -151,21 +142,20 @@ class LoginActivity : Activity() {
                 username.setError(it, null)
             }.check()
                 &&
-                password.validator().nonEmpty().atleastOneNumber()
-                    .atleastOneSpecialCharacters()
-                    .atleastOneUpperCase()
+                password.validator()
+                    .nonEmpty()
                     .minLength(3)
                     .addErrorCallback {
                         password.setError(it, null)
                     }.check()
     }
 
-    private fun <T : View> Activity.bind(@IdRes res: Int): T {
-        @Suppress("UNCHECKED_CAST")
-        return findViewById(res)
+
+    private fun storeToken(token: String) {
+        SessionManager.registerUser(this, token)
     }
 
-
+/*
     private fun googleSignIn() {
 
         val signInIntent = mGoogleSignInClient.signInIntent
@@ -173,7 +163,9 @@ class LoginActivity : Activity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
 
     }
+*/
 
+/*
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -186,6 +178,8 @@ class LoginActivity : Activity() {
 
     }
 
+*/
+/*
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
 
         try {
@@ -202,7 +196,9 @@ class LoginActivity : Activity() {
         }
 
     }
+*/
 
+/*
     private fun updateUI(account: GoogleSignInAccount?) {
 
         if (account != null) {
@@ -212,13 +208,16 @@ class LoginActivity : Activity() {
         }
 
     }
+*/
 
-    private fun showMainActivity(account: GoogleSignInAccount) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("user", account)
-        startActivity(intent)
+    private fun showMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
+
+    private fun showToast(message: String?) {
+        Toast.makeText(applicationContext, message.orEmpty(), Toast.LENGTH_LONG).show()
+    }
 
 }

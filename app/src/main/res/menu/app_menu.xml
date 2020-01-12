@@ -9,12 +9,11 @@
             android:title="@string/challenges" />
 
         <item
-            android:id="@+id/nav_second_fragment"
-            android:title="Second" />
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:id="@+id/nav_logout"
+            android:title="@string/logout" />
 
-        <item
-            android:id="@+id/nav_third_fragment"
-            android:title="Third" />
+
     </group>
 
 </menu>

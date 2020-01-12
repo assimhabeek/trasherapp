@@ -75,6 +75,7 @@ class ChallengesFragment : Fragment() {
         val tabLayout: TabLayout = root.findViewById(R.id.tabLayout)
         val adapter = fragmentManager?.let { ChallengesTabAdapter(it) }
 
+/*
         adapter?.addFragment(
             ChallengesListFragment.newInstance(challenges),
             resources.getString(R.string.list)
@@ -89,6 +90,7 @@ class ChallengesFragment : Fragment() {
             ChallengesCommentFragment(),
             resources.getString(R.string.comments)
         )
+*/
         viewPager.adapter = adapter
         viewPager.setPagingEnabled(false)
         tabLayout.setupWithViewPager(viewPager)
