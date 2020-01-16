@@ -47,6 +47,7 @@ class ChallengesMapFragment : Fragment() {
         if (context != null) {
             setupMap()
             setupLocationManager()
+            drawChallengesOnMap()
         }
 
         return mapView
@@ -60,7 +61,6 @@ class ChallengesMapFragment : Fragment() {
         mapView.setBuiltInZoomControls(true)
         mapView.setZoomLevelMin(10.toByte())
         mapView.setZoomLevelMax(20.toByte())
-        mapView.setCenter(LatLong(36.245138, 6.570929))
         mapView.setZoomLevel(16.toByte())
         val tileCache = AndroidUtil.createTileCache(
             context, "mapcache",
@@ -136,7 +136,8 @@ class ChallengesMapFragment : Fragment() {
 
 
     private fun drawLocation(location: Location?) {
-        if (location != null) {
+        if (location != null && mapView.layerManager != null) {
+            mapView.setCenter(LatLong(location.latitude,location.longitude))
             mapView.layerManager.layers.add(
                 createMarker(
                     LatLong(location.latitude, location.longitude),
@@ -155,7 +156,8 @@ class ChallengesMapFragment : Fragment() {
         )
     }
 
-    fun drawChallengesOnMap(challenges:ArrayList<Challenge>){
+    fun drawChallengesOnMap() {
+        challenges.addAll(arguments?.getSerializable("challenges") as ArrayList<Challenge>)
         var markers = challenges.map {
             createMarker(
                 LatLong(
@@ -164,7 +166,10 @@ class ChallengesMapFragment : Fragment() {
                 ), R.drawable.ic_flag
             )
         }
-        mapView.layerManager.layers.addAll(markers)
+
+        if (mapView.layerManager != null) {
+            mapView.layerManager.layers.addAll(markers)
+        }
     }
 
 

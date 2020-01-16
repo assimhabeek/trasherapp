@@ -29,4 +29,7 @@
     <string name="go_to_setting_required_permissions">Go to setting and grant required permissions</string>
     <string name="ok">OK</string>
     <string name="logout">Logout</string>
+    <string name="creation_date">Creation</string>
+    <string name="starting_date">Starting</string>
+    <string name="ending_date">Ending</string>
 </resources>

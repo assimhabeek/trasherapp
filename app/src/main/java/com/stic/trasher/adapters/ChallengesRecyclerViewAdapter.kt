@@ -12,12 +12,26 @@ import dz.stic.model.Challenge
 import dz.stic.model.Client
 
 
-class ChallengesRecyclerViewAdapter(private val challenges: ArrayList<Challenge>) :
-    RecyclerView.Adapter<ChallengesRecyclerViewAdapter.ChallengeViewHolder>() {
+class ChallengesRecyclerViewAdapter(
+    private val challenges: ArrayList<Challenge>,
+    private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<ChallengesRecyclerViewAdapter.ChallengeViewHolder>() {
 
-    class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    interface OnItemClickListener{
+        fun onItemClicked(challenge: Challenge)
+    }
+
+    class ChallengeViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val address: TextView = view.findViewById(R.id.challenge_address)
         val publisher: TextView = view.findViewById(R.id.challenge_publisher)
+
+        fun bind(challenge: Challenge, clickListener: OnItemClickListener) {
+            view.setOnClickListener {
+                clickListener.onItemClicked(challenge)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeViewHolder {
@@ -40,6 +54,10 @@ class ChallengesRecyclerViewAdapter(private val challenges: ArrayList<Challenge>
         val publisher: Client = challenges[position].getrOwner()
         holder.address.text = "${address.street}, ${address.city}, ${address.country}"
         holder.publisher.text = "${publisher.lastName} ${publisher.firstName}"
+
+        holder.bind(challenges[position], itemClickListener)
+
     }
+
 
 }

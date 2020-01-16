@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ChallengeActivity">
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:id="@+id/creation_date_layout"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/creation_date_label"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_date_range"
+                android:layout_height="wrap_content"
+                android:text="@string/creation_date" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/creation_date"
+                android:layout_marginLeft="-36dp"
+                android:layout_toRightOf="@id/creation_date_label"
+                android:layout_below="@id/creation_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-10-2004" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/starting_date_layout"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_toLeftOf="@id/ending_date_layout"
+            android:layout_toRightOf="@id/creation_date_layout"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/ending_date_layout"
+            android:layout_toEndOf="@id/creation_date_layout">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/starting_date_label"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_date_range"
+                android:layout_height="wrap_content"
+                android:text="@string/starting_date" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/starting_date"
+                android:layout_marginLeft="-36dp"
+                android:layout_toRightOf="@id/starting_date_label"
+                android:layout_below="@id/starting_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-10-2004"
+                android:layout_marginStart="-16dp"
+                android:layout_toEndOf="@id/starting_date_label" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/ending_date_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ending_date_label"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                app:drawableLeftCompat="@drawable/ic_date_range"
+                android:layout_height="wrap_content"
+                android:text="@string/ending_date" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ending_date"
+                android:layout_marginLeft="-36dp"
+                android:layout_toRightOf="@id/ending_date_label"
+                android:layout_below="@id/ending_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-10-2004" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+<RelativeLayout
+android:id="@+id/footer"
+android:layout_alignParentBottom="true"
+android:layout_height="wrap_content"
+android:layout_width="match_parent">
+
+</RelativeLayout>
+
+<ScrollView
+android:layout_above="@id/footer"
+android:layout_below="@id/header"
+android:layout_height="wrap_content"
+android:layout_width="match_parent">
+
+</ScrollView>
+
+    </RelativeLayout>

@@ -10,10 +10,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.stic.trasher.R
 import com.stic.trasher.ui.SignUpActivity.Companion.SIGN_UP_SUCCESS
-import com.stic.trasher.utils.HttpClient
-import com.stic.trasher.utils.JWtRequest
-import com.stic.trasher.utils.PermissionManager
-import com.stic.trasher.utils.SessionManager
+import com.stic.trasher.utils.*
 import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 import retrofit2.Call
 import retrofit2.Response
@@ -96,18 +93,21 @@ class LoginActivity : Activity() {
                     username.text.toString(),
                     password.text.toString()
                 )
-            ).enqueue(object : retrofit2.Callback<String> {
+            ).enqueue(object : retrofit2.Callback<JwtResponse> {
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<JwtResponse>, t: Throwable) {
+                    t.printStackTrace()
                     showToast(t.message)
                 }
 
                 override fun onResponse(
-                    call: Call<String>,
-                    response: Response<String>
+                    call: Call<JwtResponse>,
+                    response: Response<JwtResponse>
                 ) {
-                    if (response.code() == 200) {
-                        storeToken(response.body()!!)
+                    if (response.code() == 200 && response.body()!=null) {
+                        val body = response.body()!!
+                        println(body.token)
+                        storeToken(body.token)
                         showMainActivity()
                     } else {
                         showToast("Wrong username or password")
