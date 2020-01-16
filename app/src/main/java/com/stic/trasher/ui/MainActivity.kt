@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadClientInfo() {
         Thread(Runnable {
             try {
-                val response = HttpClient.userServices(this).me().execute()
+                val response = HttpClient.userService(this).me().execute()
                 if (response.code() == 200) {
                     client = response.body()!!
                     userFullName.text = "${client.lastName} ${client.firstName}"

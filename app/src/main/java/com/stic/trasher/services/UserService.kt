@@ -4,7 +4,7 @@ import dz.stic.model.Client
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface UserServices {
+interface UserService {
 
     @GET("auth/me")
     fun me(): Call<Client>

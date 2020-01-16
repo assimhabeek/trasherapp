@@ -1,8 +1,10 @@
 package com.stic.trasher.utils
 
 import android.app.Activity
-import com.stic.trasher.services.AuthServices
-import com.stic.trasher.services.UserServices
+import android.content.Context
+import com.stic.trasher.services.AuthService
+import com.stic.trasher.services.ChallengeService
+import com.stic.trasher.services.UserService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,8 +38,12 @@ object HttpClient {
         .build()
 
 
-    var authService = retrofit.create(AuthServices::class.java)
+    var authService = retrofit.create(AuthService::class.java)
 
-    fun userServices(activity: Activity) =
-        retrofitWithAuth(activity).create(UserServices::class.java)
+    fun userService(activity: Activity) =
+        retrofitWithAuth(activity).create(UserService::class.java)
+
+    fun challengeService(activity: Activity) =
+        retrofitWithAuth(activity).create(ChallengeService::class.java)
+
 }

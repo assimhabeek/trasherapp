@@ -86,7 +86,7 @@ class ChallengesMapFragment : Fragment() {
 
     }
 
-    fun setupLocationManager() {
+    private fun setupLocationManager() {
         locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ContextCompat.checkSelfPermission(
                 context!!,
@@ -153,6 +153,18 @@ class ChallengesMapFragment : Fragment() {
         return Marker(
             geoPoint, bitmap, 0, -bitmap.height / 2
         )
+    }
+
+    fun drawChallengesOnMap(challenges:ArrayList<Challenge>){
+        var markers = challenges.map {
+            createMarker(
+                LatLong(
+                    it.getrAddress().latitiude,
+                    it.getrAddress().longitude
+                ), R.drawable.ic_flag
+            )
+        }
+        mapView.layerManager.layers.addAll(markers)
     }
 
 
