@@ -141,7 +141,7 @@ class ChallengesMapFragment : Fragment() {
             mapView.layerManager.layers.add(
                 createMarker(
                     LatLong(location.latitude, location.longitude),
-                    R.drawable.ic_location_on
+                    R.drawable.ic_location_on_green
                 )
             )
         }

@@ -12,7 +12,7 @@ import com.github.ybq.android.spinkit.SpinKitView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.stic.trasher.R
-import com.stic.trasher.adapters.ChallengesTabAdapter
+import com.stic.trasher.adapters.TabAdapter
 import com.stic.trasher.controll.ChallengeViewPager
 import com.stic.trasher.utils.HttpClient
 import dz.stic.model.Challenge
@@ -27,9 +27,10 @@ class ChallengesFragment : Fragment() {
     private lateinit var progressBar: SpinKitView
     private lateinit var mapFragment: ChallengesMapFragment
     private lateinit var listFragment: ChallengesListFragment
+
     private lateinit var viewPager: ChallengeViewPager
     private lateinit var tabLayout: TabLayout
-    private var adapter: ChallengesTabAdapter? = null
+    private var adapter: TabAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +54,7 @@ class ChallengesFragment : Fragment() {
     }
 
     fun createViewPager() {
-        adapter = fragmentManager?.let { ChallengesTabAdapter(it) }
+        adapter = fragmentManager?.let { TabAdapter(it) }
 
         adapter?.addFragment(listFragment, resources.getString(R.string.list))
         adapter?.addFragment(mapFragment, resources.getString(R.string.map))
@@ -74,8 +75,7 @@ class ChallengesFragment : Fragment() {
                 .enqueue(object : retrofit2.Callback<ArrayList<Challenge>> {
 
                     override fun onFailure(call: Call<ArrayList<Challenge>>, t: Throwable) {
-                        Toast.makeText(activity, t.message, Toast.LENGTH_LONG)
-                            .show()
+                        t.printStackTrace()
                     }
 
                     override fun onResponse(

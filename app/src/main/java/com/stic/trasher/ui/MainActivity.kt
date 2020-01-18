@@ -1,6 +1,8 @@
 package com.stic.trasher.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,10 +14,15 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.stic.trasher.R
 import com.stic.trasher.ui.framgments.ChallengesFragment
+import com.stic.trasher.utils.BitmapUtiles
 import com.stic.trasher.utils.HttpClient
 import com.stic.trasher.utils.PermissionManager
 import com.stic.trasher.utils.SessionManager
+import de.hdodenhof.circleimageview.CircleImageView
 import dz.stic.model.Client
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +33,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var client: Client
     private lateinit var userEmail: TextView
     private lateinit var userFullName: TextView
+    private lateinit var profileImage: CircleImageView
     private lateinit var navHeader: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,12 +57,23 @@ class MainActivity : AppCompatActivity() {
     private fun loadClientInfo() {
         Thread(Runnable {
             try {
-                val response = HttpClient.userService(this).me().execute()
-                if (response.code() == 200) {
-                    client = response.body()!!
-                    userFullName.text = "${client.lastName} ${client.firstName}"
-                    userEmail.text = client.email
-                }
+                HttpClient.userService(this).me().enqueue(object : Callback<Client> {
+                    override fun onFailure(call: Call<Client>, t: Throwable) {
+                        t.printStackTrace()
+                    }
+
+                    override fun onResponse(call: Call<Client>, response: Response<Client>) {
+                        if (response.code() == 200) {
+                            client = response.body()!!
+                            print(client.photo.size)
+                            userFullName.text = "${client.lastName} ${client.firstName}"
+                            userEmail.text = client.email
+
+                            BitmapUtiles.displayImage(profileImage, client.photo,100,100)
+
+                        }
+                    }
+                })
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -68,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         navHeader = navView.inflateHeaderView(R.layout.nav_header)
         userFullName = navHeader.findViewById(R.id.user_fullName)
         userEmail = navHeader.findViewById(R.id.user_email)
+        profileImage = navHeader.findViewById(R.id.profile_image)
     }
 
 
@@ -106,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayFragment(fragment: Fragment){
+    private fun displayFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_content, fragment)

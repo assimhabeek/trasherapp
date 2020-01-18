@@ -12,8 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/profile_image_placeholder" />
+        android:layout_marginBottom="16dp" />
 
     <TextView
         style="@style/TextAppearance.MaterialComponents.Body1"

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.stic.trasher.ChallengeActivity
+import com.stic.trasher.ui.ChallengeActivity
 import com.stic.trasher.R
 import com.stic.trasher.adapters.ChallengesRecyclerViewAdapter
 import dz.stic.model.Challenge

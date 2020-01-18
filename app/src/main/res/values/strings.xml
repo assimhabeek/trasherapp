@@ -32,4 +32,7 @@
     <string name="creation_date">Creation</string>
     <string name="starting_date">Starting</string>
     <string name="ending_date">Ending</string>
+    <string name="address">Address</string>
+    <string name="enroll">Enroll</string>
+    <string name="photos">Photos</string>
 </resources>

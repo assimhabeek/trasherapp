@@ -32,18 +32,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/by" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image_owner"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="6dp"
+                android:layout_margin="2dp"
+                android:layout_marginStart="5dp" />
+
 
             <TextView
-                android:layout_marginLeft="5dp"
                 android:id="@+id/challenge_publisher"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
                 android:text="Empty Element" />
 
         </LinearLayout>
