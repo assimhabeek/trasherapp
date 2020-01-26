@@ -111,12 +111,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/sign_in_button"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/colorAccent"
+                    android:textColor="@color/colorAccent"
+
+                    android:text="@string/login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/colorAccent"
-                    app:strokeColor="@color/colorAccent"
-                    android:text="@string/login"
                     tools:targetApi="lollipop" />
 
             </LinearLayout>

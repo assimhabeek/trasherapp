@@ -2,12 +2,13 @@ package com.stic.trasher.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.widget.ImageView
 import de.hdodenhof.circleimageview.CircleImageView
 
 object BitmapUtiles {
 
 
-    fun displayImage(
+    fun displayCircleImage(
         profileImage: CircleImageView,
         photo: ByteArray,
         width: Int = 100,
@@ -21,6 +22,15 @@ object BitmapUtiles {
                 height,
                 false
             )
+        )
+    }
+
+    fun displayImage(
+        profileImage: ImageView,
+        photo: ByteArray) {
+        val bmp = bytesToImage(photo)
+        profileImage.setImageBitmap(
+            Bitmap.createBitmap(bmp)
         )
     }
 

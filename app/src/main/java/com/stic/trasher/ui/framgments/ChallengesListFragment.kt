@@ -28,7 +28,7 @@ class ChallengesListFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.framgment_challenges_list, container, false)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        val recyclerView: RecyclerView = view.findViewById(R.id.challenges_recycler_view)
         recyclerViewAdapter = ChallengesRecyclerViewAdapter(challenges,
             object : ChallengesRecyclerViewAdapter.OnItemClickListener {
                 override fun onItemClicked(challenge: Challenge) {

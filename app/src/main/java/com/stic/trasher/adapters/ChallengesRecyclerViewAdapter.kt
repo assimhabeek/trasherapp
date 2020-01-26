@@ -20,14 +20,14 @@ class ChallengesRecyclerViewAdapter(
 ) : RecyclerView.Adapter<ChallengesRecyclerViewAdapter.ChallengeViewHolder>() {
 
 
-    interface OnItemClickListener{
+    interface OnItemClickListener {
         fun onItemClicked(challenge: Challenge)
     }
 
     class ChallengeViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val address: TextView = view.findViewById(R.id.challenge_address)
         val publisher: TextView = view.findViewById(R.id.challenge_publisher)
-        val image:CircleImageView = view.findViewById(R.id.profile_image_owner)
+        val image: CircleImageView = view.findViewById(R.id.profile_image_owner)
 
         fun bind(challenge: Challenge, clickListener: OnItemClickListener) {
             view.setOnClickListener {
@@ -57,7 +57,11 @@ class ChallengesRecyclerViewAdapter(
         val publisher: Client = challenges[position].getrOwner()
         holder.address.text = "${address.street}, ${address.city}, ${address.country}"
         holder.publisher.text = "${publisher.lastName} ${publisher.firstName}"
-        BitmapUtiles.displayImage(holder.image,challenges[position].getrOwner().photo,24,24)
+
+        if (challenges[position].getrOwner().photo != null) {
+            BitmapUtiles.displayCircleImage(holder.image, challenges[position].getrOwner().photo, 24, 24)
+        }
+
         holder.bind(challenges[position], itemClickListener)
 
     }

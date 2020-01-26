@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.stic.trasher.ui.LoginActivity
 import com.stic.trasher.ui.MainActivity
+import dz.stic.model.Client
 
 object SessionManager {
 
@@ -12,7 +13,7 @@ object SessionManager {
     private const val TOKEN_KEY = "token"
 
 
-    fun registerUser(activity: Activity, token: String) {
+    fun registerUserToken(activity: Activity, token: String) {
         val sharedPref = activity.getSharedPreferences(PERF_NAME, Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             putString(TOKEN_KEY, token)
@@ -21,7 +22,21 @@ object SessionManager {
     }
 
 
-    fun logout(activity: Activity){
+    fun registerUser(activity: Activity, client: Client) {
+        val sharedPref = activity.getSharedPreferences(PERF_NAME, Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("client", GsonUtil.gson.toJson(client))
+            commit()
+        }
+    }
+
+    fun getUser(activity: Activity): Client? {
+        val sharedPref = activity.getSharedPreferences(PERF_NAME, Context.MODE_PRIVATE)
+        return GsonUtil.gson.fromJson(sharedPref.getString("client", ""), Client::class.java)
+    }
+
+
+    fun logout(activity: Activity) {
         val sharedPref = activity.getSharedPreferences(PERF_NAME, Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             remove(TOKEN_KEY)

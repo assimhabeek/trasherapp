@@ -2,37 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comments_recycler_view"
+        android:id="@+id/participant_recycler_view"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_above="@+id/commenting_area"
         android:scrollbars="vertical" />
 
     <LinearLayout
+        android:background="@color/colorAccent"
         android:id="@+id/commenting_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:layout_margin="4dp">
-
-        <EditText
-            android:padding="6dp"
-            android:id="@+id/comment_content_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="200" />
+        android:gravity="center">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/send_comment_button"
+            android:id="@+id/enroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/send" />
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:text="@string/enroll" />
+
     </LinearLayout>
 </RelativeLayout>

@@ -35,4 +35,12 @@
     <string name="address">Address</string>
     <string name="enroll">Enroll</string>
     <string name="photos">Photos</string>
+    <string name="send">Send</string>
+    <string name="commenting_failed">Commenting Failed</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_challenge">Add Challenge</string>
+    <string name="save">Save</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="country">Country</string>
 </resources>

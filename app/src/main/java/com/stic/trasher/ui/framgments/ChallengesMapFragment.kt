@@ -16,9 +16,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.stic.trasher.R
+import com.stic.trasher.ui.AddChallengeDialog
 import dz.stic.model.Challenge
 import org.mapsforge.core.graphics.Bitmap
 import org.mapsforge.core.model.LatLong
+import org.mapsforge.core.model.Point
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory
 import org.mapsforge.map.android.util.AndroidUtil
 import org.mapsforge.map.android.view.MapView
@@ -62,6 +64,8 @@ class ChallengesMapFragment : Fragment() {
         mapView.setZoomLevelMin(10.toByte())
         mapView.setZoomLevelMax(20.toByte())
         mapView.setZoomLevel(16.toByte())
+        mapView.setCenter(LatLong(36.248255, 6.567181))
+
         val tileCache = AndroidUtil.createTileCache(
             context, "mapcache",
             mapView.model.displayModel.tileSize, 1f,
@@ -75,15 +79,34 @@ class ChallengesMapFragment : Fragment() {
 
         val mapDataStore = MapFile(file)
 
-        val tileRendererLayer = TileRendererLayer(
+        val tileRendererLayer = object : TileRendererLayer(
             tileCache, mapDataStore,
             mapView.model.mapViewPosition,
             AndroidGraphicFactory.INSTANCE
-        )
+        ) {
+            override fun onLongPress(
+                tapLatLong: LatLong?,
+                layerXY: Point?,
+                tapXY: Point?
+            ): Boolean {
+                openCreationDialog(tapLatLong)
+                return true
+            }
+        }
+
+
 
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER)
+
+
         mapView.layerManager.layers.add(tileRendererLayer)
 
+
+    }
+
+    private fun openCreationDialog(tapLatLong: LatLong?) {
+        val dialog = AddChallengeDialog(activity!!,tapLatLong!!)
+            .show()
     }
 
     private fun setupLocationManager() {
@@ -137,7 +160,7 @@ class ChallengesMapFragment : Fragment() {
 
     private fun drawLocation(location: Location?) {
         if (location != null && mapView.layerManager != null) {
-            mapView.setCenter(LatLong(location.latitude,location.longitude))
+            mapView.setCenter(LatLong(location.latitude, location.longitude))
             mapView.layerManager.layers.add(
                 createMarker(
                     LatLong(location.latitude, location.longitude),

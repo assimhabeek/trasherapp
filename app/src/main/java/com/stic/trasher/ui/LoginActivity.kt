@@ -152,7 +152,7 @@ class LoginActivity : Activity() {
 
 
     private fun storeToken(token: String) {
-        SessionManager.registerUser(this, token)
+        SessionManager.registerUserToken(this, token)
     }
 
 /*

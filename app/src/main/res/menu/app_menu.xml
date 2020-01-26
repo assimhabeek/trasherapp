@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
 
         <item
-            android:icon="@drawable/ic_medal_hanging_of_a_ribbon"
             android:id="@+id/nav_challenges_fragment"
+            android:icon="@drawable/ic_medal_hanging_of_a_ribbon"
             android:title="@string/challenges" />
 
+
         <item
-            android:icon="@android:drawable/ic_lock_power_off"
             android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_lock_power_off"
             android:title="@string/logout" />
 
 
     </group>
+
 
 </menu>

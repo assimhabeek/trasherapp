@@ -4,7 +4,9 @@
     <color name="colorPrimaryLight">#669266</color>
     <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorPrimaryDark">#005000</color>
+    <color name="colorPrimaryTextNormal">#333</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccentNormal">#D84315</color>
     <color name="ic_launcher_background">#EEEEEE</color>
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 </resources>

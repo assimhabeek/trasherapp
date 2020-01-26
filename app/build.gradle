@@ -54,7 +54,6 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
-
     // for google sign in
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
@@ -80,6 +79,9 @@ dependencies {
     // http client
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    implementation 'com.github.jkwiecien:EasyImage:3.0.3'
+
 
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.1'

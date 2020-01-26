@@ -1,8 +1,6 @@
 package com.stic.trasher.ui
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -65,11 +63,12 @@ class MainActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Client>, response: Response<Client>) {
                         if (response.code() == 200) {
                             client = response.body()!!
-                            print(client.photo.size)
+
+                            SessionManager.registerUser(this@MainActivity, client)
+
                             userFullName.text = "${client.lastName} ${client.firstName}"
                             userEmail.text = client.email
-
-                            BitmapUtiles.displayImage(profileImage, client.photo,100,100)
+                            BitmapUtiles.displayCircleImage(profileImage, client.photo, 100, 100)
 
                         }
                     }
